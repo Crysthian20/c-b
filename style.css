@@ -194,6 +194,7 @@ textarea {
 
 .hero {
   position: relative;
+  z-index: 3;
   min-height: 100svh;
   display: grid;
   place-items: center;
@@ -384,6 +385,7 @@ h1 .ampersand {
   position: absolute;
   bottom: -22px;
   left: 50%;
+  z-index: 10;
   width: 28px;
   height: 44px;
   border: 1px solid rgba(0, 63, 189, 0.45);
@@ -598,7 +600,7 @@ section {
   min-height: 92svh;
   display: grid;
   place-items: start center;
-  padding: 42px 18px 34px;
+  padding: 18px 18px 34px;
   overflow: hidden;
   isolation: isolate;
   background: var(--paper);
@@ -633,7 +635,7 @@ section {
   position: relative;
   z-index: 1;
   width: min(100%, 510px);
-  margin: -24px auto 0;
+  margin: -46px auto 0;
   padding: 20px 16px;
   color: var(--white);
   background: rgba(6, 27, 84, 0.7);
@@ -760,14 +762,14 @@ section {
 }
 
 .rsvp {
-  padding-top: 24px;
+  padding-top: 0;
   padding-bottom: 92px;
 }
 
 .rsvp-frame {
   position: relative;
   width: min(100%, 620px);
-  margin: -16px auto 0;
+  margin: -46px auto 0;
   padding: 26px 18px;
   background:
     linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.94)),
@@ -876,7 +878,7 @@ section {
   color: var(--white);
   background: var(--blue-deep);
   border: 1px solid var(--blue-deep);
-  border-radius: 12px;
+  border-radius: 8px;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.14em;

@@ -29,7 +29,7 @@ body {
   color: var(--ink);
   background:
     linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.94)),
-    url("assets/image-back.png") center top / min(145vw, 760px) auto repeat-y;
+    url("assets/image-back.PNG") center top / min(145vw, 760px) auto repeat-y;
   font-family: var(--sans);
 }
 
@@ -223,7 +223,7 @@ body.invite-opened .hero {
   inset: 0;
   background:
     linear-gradient(rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0.48)),
-    url("assets/image-back.png") center top / cover;
+    url("assets/image-back.PNG") center top / cover;
   z-index: -2;
 }
 
@@ -757,7 +757,7 @@ section {
   padding: 26px 18px;
   background:
     linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.94)),
-    url("assets/image-back.png") center / 820px auto;
+    url("assets/image-back.PNG") center / 820px auto;
   border: 0;
   box-shadow: var(--shadow);
   text-align: center;

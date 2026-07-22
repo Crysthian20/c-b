@@ -19,6 +19,7 @@ const weddingTimeLabel = document.querySelector("#wedding-time");
 const ceremonyInfo = document.querySelector("#ceremony-info");
 const receptionInfo = document.querySelector("#reception-info");
 const countdown = document.querySelector("#countdown");
+const rsvpSection = document.querySelector("#presenca");
 const rsvpForm = document.querySelector("#rsvp-form");
 const formFeedback = document.querySelector("#form-feedback");
 const envelopeGate = document.querySelector("#envelope");
@@ -80,6 +81,19 @@ function revealOnScroll() {
   );
 
   document.querySelectorAll(".reveal").forEach((element) => observer.observe(element));
+}
+
+function hideFloatingButtonAtRsvp() {
+  if (!rsvpSection) {
+    return;
+  }
+
+  const observer = new IntersectionObserver(([entry]) => {
+    const hasReachedRsvp = entry.isIntersecting || entry.boundingClientRect.top < 0;
+    document.body.classList.toggle("rsvp-reached", hasReachedRsvp);
+  });
+
+  observer.observe(rsvpSection);
 }
 
 function setupPhotoCarousel() {
@@ -257,6 +271,7 @@ updateCountdown();
 document.documentElement.classList.add("envelope-locked");
 document.body.classList.add("envelope-locked");
 revealOnScroll();
+hideFloatingButtonAtRsvp();
 setupPhotoCarousel();
 setupChurchParallax();
 setInterval(updateCountdown, 1000);

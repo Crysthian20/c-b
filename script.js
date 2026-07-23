@@ -182,6 +182,10 @@ function setupPhotoCarousel() {
   }
 
   photoCarouselTrack.addEventListener("scroll", () => {
+    if (photoCarouselTrack.classList.contains("is-animating")) {
+      return;
+    }
+
     window.cancelAnimationFrame(scrollFrameId);
     scrollFrameId = window.requestAnimationFrame(updateSlideFocus);
   });

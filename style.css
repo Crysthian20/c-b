@@ -279,6 +279,7 @@ h3 {
 }
 
 h1 {
+  color: var(--blue-deep);
   font-family: var(--script);
   font-size: clamp(3.85rem, 20vw, 6.3rem);
   font-weight: 300;
@@ -326,7 +327,7 @@ h1 .ampersand {
 
 .date-weekday,
 .date-time {
-  color: var(--ink);
+  color: var(--blue-deep);
   font-size: clamp(0.82rem, 3.8vw, 1.05rem);
   font-weight: 600;
   letter-spacing: 0;
@@ -355,7 +356,7 @@ h1 .ampersand {
 }
 
 .date-center small {
-  color: var(--ink);
+  color: var(--blue-deep);
   font-size: 0.74rem;
   font-weight: 500;
   text-transform: none;
@@ -370,7 +371,7 @@ h1 .ampersand {
 }
 
 .date-center strong {
-  color: var(--ink);
+  color: var(--blue-deep);
   font-size: clamp(2rem, 10vw, 2.8rem);
   font-weight: 700;
   line-height: 0.9;
@@ -395,7 +396,7 @@ h1 .ampersand {
   place-items: start center;
   padding-top: 8px;
   background: rgba(255, 253, 248, 0.86);
-  animation: mouseBounce 1.9s ease-in-out infinite;
+  animation: mouseBounce 1.6s ease-in-out infinite;
 }
 
 .scroll-cue span {
@@ -909,6 +910,19 @@ section {
   width: 100%;
 }
 
+.primary-button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.form-honeypot {
+  position: absolute !important;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 .form-feedback {
   min-height: 24px;
   margin-top: 16px;
@@ -916,6 +930,14 @@ section {
   font-family: var(--sans);
   font-size: 0.88rem;
   font-weight: 700;
+}
+
+.form-feedback.is-success {
+  color: #176b3a;
+}
+
+.form-feedback.is-error {
+  color: #a32929;
 }
 
 .footer {
@@ -970,7 +992,7 @@ section {
   color: rgba(255, 255, 255, 0.777);
   font-weight: 600;
   font-size: 0.78rem;
-  text-align: right;
+  text-align: center;
 }
 
 .floating-rsvp {

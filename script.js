@@ -1,15 +1,18 @@
 const weddingDetails = {
-  date: "2027-01-26T16:00:00-03:00",
+  date: "2027-01-16T16:00:00-03:00",
   weekday: "Sábado",
   month: "Jan",
-  day: "26",
+  day: "16",
   year: "2027",
   timeLabel: "16 horas",
   place: "Basílica Nossa Senhora da Conceição, Tatuí",
-  ceremony: "26 de janeiro de 2027, às 16h, na Basílica Nossa Senhora da Conceição. Praça da Matriz, 105 - Centro, Tatuí - SP.",
+  ceremony: "16 de janeiro de 2027, às 16h, na Basílica Nossa Senhora da Conceição. Praça da Matriz, 105 - Centro, Tatuí - SP.",
   reception: "Após a cerimônia, celebraremos juntos em um ambiente especial.",
   whatsappNumber: ""
 };
+
+const rsvpWebhookUrl =
+  "https://primary-production-714c.up.railway.app/webhook/convite-digital";
 
 const weddingWeekday = document.querySelector("#wedding-weekday");
 const weddingMonth = document.querySelector("#wedding-month");
@@ -244,26 +247,80 @@ function openInvitation() {
   }, 3700);
 }
 
-function handleRsvp(event) {
+async function handleRsvp(event) {
   event.preventDefault();
 
   const formData = new FormData(rsvpForm);
   const confirmation = {
     name: formData.get("name").trim(),
-    guests: formData.get("guests"),
+    guests: Number(formData.get("guests")),
     message: formData.get("message").trim(),
-    sentAt: new Date().toISOString()
+    website: formData.get("website").trim()
   };
+  const submitButton = rsvpForm.querySelector('button[type="submit"]');
+  const originalButtonText = submitButton.textContent;
 
-  localStorage.setItem("cbWeddingRsvp", JSON.stringify(confirmation));
-  formFeedback.textContent = `Presença confirmada, ${confirmation.name}. Obrigado pelo carinho!`;
-
-  if (weddingDetails.whatsappNumber) {
-    const text = `Oi! Confirmo minha presença no casamento de Crysthian e Bruna.%0A%0ANome: ${confirmation.name}%0AConvidados: ${confirmation.guests}%0ARecado: ${confirmation.message || "-"}`;
-    window.open(`https://wa.me/${weddingDetails.whatsappNumber}?text=${text}`, "_blank");
+  if (confirmation.website) {
+    rsvpForm.reset();
+    return;
   }
 
-  rsvpForm.reset();
+  submitButton.disabled = true;
+  submitButton.textContent = "Enviando...";
+  formFeedback.className = "form-feedback";
+  formFeedback.textContent = "Registrando sua confirmação...";
+
+  try {
+    const response = await fetch(rsvpWebhookUrl, {
+      method: "POST",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: confirmation.name,
+        guests: confirmation.guests,
+        message: confirmation.message,
+        submittedAt: new Date().toISOString(),
+        source: "cb-invite.vercel.app"
+      })
+    });
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+      throw new Error(
+        result.message || result.error || "Não foi possível registrar sua confirmação."
+      );
+    }
+
+    localStorage.setItem(
+      "cbWeddingRsvp",
+      JSON.stringify({
+        name: confirmation.name,
+        guests: confirmation.guests,
+        message: confirmation.message,
+        sentAt: new Date().toISOString()
+      })
+    );
+    formFeedback.classList.add("is-success");
+    formFeedback.textContent = `Presença confirmada, ${confirmation.name}. Obrigado pelo carinho!`;
+
+    if (weddingDetails.whatsappNumber) {
+      const text = encodeURIComponent(
+        `Oi! Confirmo minha presença no casamento de Crysthian e Bruna.\n\nNome: ${confirmation.name}\nConvidados: ${confirmation.guests}\nRecado: ${confirmation.message || "-"}`
+      );
+      window.open(`https://wa.me/${weddingDetails.whatsappNumber}?text=${text}`, "_blank");
+    }
+
+    rsvpForm.reset();
+  } catch (error) {
+    formFeedback.classList.add("is-error");
+    formFeedback.textContent =
+      error.message || "Não foi possível confirmar agora. Tente novamente em instantes.";
+  } finally {
+    submitButton.disabled = false;
+    submitButton.textContent = originalButtonText;
+  }
 }
 
 applyWeddingDetails();

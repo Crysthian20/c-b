@@ -37,7 +37,7 @@
               <span>Bruna</span>
             </h1>
             <p class="hero-subtitle">Um novo capítulo, escrito com fé, família e amor.</p>
-            <div class="hero-date" aria-label="Sábado, 26 de janeiro de 2027, às 16 horas">
+            <div class="hero-date" aria-label="Sábado, 16 de janeiro de 2027, às 16 horas">
               <div class="date-line">
                 <span class="date-weekday" id="wedding-weekday">Sábado</span>
                 <span class="date-divider" aria-hidden="true"></span>
@@ -263,7 +263,14 @@
             <form class="rsvp-form" id="rsvp-form">
               <label>
                 Nome
-                <input type="text" name="name" placeholder="Seu nome" required />
+                <input
+                  type="text"
+                  name="name"
+                  placeholder="Seu nome"
+                  autocomplete="name"
+                  maxlength="120"
+                  required
+                />
               </label>
               <label>
                 Quantidade de convidados
@@ -276,11 +283,20 @@
               </label>
               <label>
                 Recado para os noivos
-                <textarea name="message" rows="3" placeholder="Escreva uma mensagem opcional"></textarea>
+                <textarea
+                  name="message"
+                  rows="3"
+                  maxlength="500"
+                  placeholder="Escreva uma mensagem opcional"
+                ></textarea>
+              </label>
+              <label class="form-honeypot" aria-hidden="true">
+                Não preencha este campo
+                <input type="text" name="website" tabindex="-1" autocomplete="off" />
               </label>
               <button class="primary-button" type="submit">Confirmar presença</button>
             </form>
-            <p class="form-feedback" id="form-feedback" role="status"></p>
+            <p class="form-feedback" id="form-feedback" role="status" aria-live="polite"></p>
           </div>
         </section>
       </main>
@@ -293,7 +309,8 @@
             <span>Bruna</span>
           </p>
         </div>
-        <small class="made-by">- Feito pelo noivo 😉</small>
+        <small class="made-by">Feito pelo noivo 😉<br>
+                               Supervisionado pela noiva 😎 </small>
       </footer>
 
       <a class="floating-rsvp" href="#presenca">Confirmar</a>

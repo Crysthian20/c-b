@@ -29,6 +29,9 @@ const envelopeGate = document.querySelector("#envelope");
 const envelopeButton = document.querySelector(".envelope-button");
 const envelopeSeal = document.querySelector(".envelope-seal");
 const cloudTransition = document.querySelector(".cloud-transition");
+const backgroundMusic = document.querySelector("#background-music");
+const musicToggle = document.querySelector("#music-toggle");
+const musicToggleIcon = musicToggle.querySelector("span");
 const photoCarouselTrack = document.querySelector(".photo-carousel-track");
 const photoSlides = Array.from(document.querySelectorAll(".photo-slide"));
 const churchSection = document.querySelector(".church-section");
@@ -224,6 +227,11 @@ function openInvitation() {
     return;
   }
 
+  backgroundMusic.volume = 0.3;
+  backgroundMusic.play().catch(() => {
+    updateMusicToggle();
+  });
+
   envelopeGate.classList.add("is-opening");
   cloudTransition.classList.remove("is-clearing", "is-covering");
   cloudTransition.classList.add("is-visible");
@@ -245,6 +253,16 @@ function openInvitation() {
   setTimeout(() => {
     cloudTransition.classList.remove("is-visible", "is-clearing");
   }, 3700);
+}
+
+function updateMusicToggle() {
+  const isPlaying = !backgroundMusic.paused;
+  const label = isPlaying ? "Pausar música" : "Tocar música";
+
+  musicToggleIcon.textContent = isPlaying ? "❚❚" : "▶";
+  musicToggle.setAttribute("aria-label", label);
+  musicToggle.title = label;
+  musicToggle.classList.toggle("is-playing", isPlaying);
 }
 
 async function handleRsvp(event) {
@@ -338,4 +356,15 @@ envelopeButton.addEventListener("click", (event) => {
     openInvitation();
   }
 });
+musicToggle.addEventListener("click", () => {
+  if (backgroundMusic.paused) {
+    backgroundMusic.play().catch(() => {
+      updateMusicToggle();
+    });
+  } else {
+    backgroundMusic.pause();
+  }
+});
+backgroundMusic.addEventListener("play", updateMusicToggle);
+backgroundMusic.addEventListener("pause", updateMusicToggle);
 rsvpForm.addEventListener("submit", handleRsvp);

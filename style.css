@@ -303,6 +303,7 @@ h1 .ampersand {
 .hero-subtitle {
   width: min(100%, 300px);
   margin: 22px auto 0;
+  color: var(--blue-deep);
   font-family: var(--sans);
   font-weight: 400;
   font-size: 1.18rem;
@@ -327,7 +328,7 @@ h1 .ampersand {
 
 .date-weekday,
 .date-time {
-  color: var(--blue-deep);
+  color: var(--ink);
   font-size: clamp(0.82rem, 3.8vw, 1.05rem);
   font-weight: 600;
   letter-spacing: 0;
@@ -356,7 +357,7 @@ h1 .ampersand {
 }
 
 .date-center small {
-  color: var(--blue-deep);
+  color: var(--ink);
   font-size: 0.74rem;
   font-weight: 500;
   text-transform: none;
@@ -371,7 +372,7 @@ h1 .ampersand {
 }
 
 .date-center strong {
-  color: var(--blue-deep);
+  color: var(--ink);
   font-size: clamp(2rem, 10vw, 2.8rem);
   font-weight: 700;
   line-height: 0.9;

@@ -31,7 +31,6 @@ const envelopeSeal = document.querySelector(".envelope-seal");
 const cloudTransition = document.querySelector(".cloud-transition");
 const backgroundMusic = document.querySelector("#background-music");
 const musicToggle = document.querySelector("#music-toggle");
-const musicToggleIcon = musicToggle.querySelector("span");
 const photoCarouselTrack = document.querySelector(".photo-carousel-track");
 const photoSlides = Array.from(document.querySelectorAll(".photo-slide"));
 const churchSection = document.querySelector(".church-section");
@@ -227,7 +226,7 @@ function openInvitation() {
     return;
   }
 
-  backgroundMusic.volume = 0.3;
+  backgroundMusic.volume = 0.11;
   backgroundMusic.play().catch(() => {
     updateMusicToggle();
   });
@@ -259,7 +258,6 @@ function updateMusicToggle() {
   const isPlaying = !backgroundMusic.paused;
   const label = isPlaying ? "Pausar música" : "Tocar música";
 
-  musicToggleIcon.textContent = isPlaying ? "❚❚" : "▶";
   musicToggle.setAttribute("aria-label", label);
   musicToggle.title = label;
   musicToggle.classList.toggle("is-playing", isPlaying);

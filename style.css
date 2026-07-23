@@ -534,8 +534,8 @@ section {
   width: 100%;
   height: 100%;
   object-fit: cover;
+
   border: 1px solid rgba(0, 63, 189, 0.28);
-  border-radius: 4px;
   box-shadow: 0 10px 24px rgba(7, 8, 13, 0.12);
 }
 
@@ -1044,15 +1044,45 @@ body.invite-opened.rsvp-reached .floating-rsvp {
   transition: opacity 0.25s ease, transform 0.25s ease, background 0.25s ease;
 }
 
-.music-toggle span {
+.music-toggle-icon {
+  position: relative;
   display: block;
-  font-size: 0.72rem;
-  line-height: 1;
-  transform: translateX(1px);
+  width: 14px;
+  height: 14px;
 }
 
-.music-toggle.is-playing span {
-  transform: none;
+.music-toggle-icon::before,
+.music-toggle-icon::after {
+  content: "";
+  position: absolute;
+}
+
+.music-toggle-icon::before {
+  top: 0;
+  left: 3px;
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 11px solid currentColor;
+}
+
+.music-toggle.is-playing .music-toggle-icon::before,
+.music-toggle.is-playing .music-toggle-icon::after {
+  top: 1px;
+  width: 4px;
+  height: 12px;
+  background: currentColor;
+  border: 0;
+  border-radius: 1px;
+}
+
+.music-toggle.is-playing .music-toggle-icon::before {
+  left: 2px;
+}
+
+.music-toggle.is-playing .music-toggle-icon::after {
+  left: 9px;
 }
 
 body.invite-opened .music-toggle {
